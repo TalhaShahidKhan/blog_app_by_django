@@ -1,9 +1,19 @@
 from django.shortcuts import render,redirect
 from home.forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def landingpage(request):
   return render(request, 'home/landingpage.html')
+
+@login_required(login_url='login')
+def homepage(request):
+  return render(request, 'home/home.html')
+
+
+@login_required(login_url='login')
+def profilepage(request):
+  return render(request, 'home/profile.html')
 
 
 
