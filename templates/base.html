@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock title %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  {% comment %} navbar start {% endcomment %}
+  <header class="text-gray-600 body-font ">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a href="{% url 'LP' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <span class="ml-3 text-xl">CodeBlog</span>
+      </a>
+      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+        <a class="mr-5 px-2 py-2 text-white font-bold bg-gray-400 hover:bg-gray-700  rounded-xl ">First Link</a>
+        <a class="mr-5 px-2 py-2 text-white font-bold bg-gray-400 hover:bg-gray-700  rounded-xl ">Second Link</a>
+        <a class="mr-5 px-2 py-2 text-white font-bold bg-gray-400 hover:bg-gray-700  rounded-xl ">Third Link</a>
+        <a class="mr-5 px-2 py-2 text-white font-bold bg-gray-400 hover:bg-gray-700  rounded-xl ">Fourth Link</a>
+      </nav>
+      <a class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Login
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+      <a class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Signup
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </header>
+  <hr class="shadow-xl">
+  <hr class="shadow-xl">
+  {% comment %} navbar end {% endcomment %}
+  {% block body %}{% endblock body %}
+  {% comment %} footer start {% endcomment %}
+  <div class="bg-white pt-4 sm:pt-10 lg:pt-12">
+    <footer class="max-w-screen-2xl px-4 md:px-8 mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center border-t border-b gap-4 py-6">
+        <a href="{% url 'LP' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span class="ml-3 text-xl">CodeBlog</span>
+        </a>
+        <!-- nav - start -->
+        <nav class="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 md:gap-6">
+          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">About</a>
+          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Investor Relations</a>
+          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Jobs</a>
+          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Press</a>
+          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Blog</a>
+        </nav>
+        <!-- nav - end -->
+      </div>
+  
+      <div class="text-gray-400 text-sm text-center py-8">© 2021 - CodeBlog. All rights reserved.</div>
+    </footer>
+  </div>
+  {% comment %} footer end {% endcomment %}
+</body>
+</html>
