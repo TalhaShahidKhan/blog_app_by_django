@@ -20,6 +20,7 @@ from home.views import landingpage
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',landingpage,name="LP"),
-    path('home/', include('home.urls')),
-    path('blog/', include('blog.urls')),
+    path('auth/', include('django.contrib.auth.urls'),name='auth'),
+    path('home/', include('home.urls',namespace='home')),
+    path('blog/', include('blog.urls',namespace='blog')),
 ]
