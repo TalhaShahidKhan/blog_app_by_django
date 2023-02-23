@@ -3,5 +3,4 @@ urlpatterns = [
     
 ]
 
-
-app_name='blog'
+app_name="blog"
