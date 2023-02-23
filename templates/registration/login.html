@@ -1,39 +1,52 @@
 {% extends 'base.html' %}
-{% block title %}Dashboard | You are Logged In{% endblock title %}
+{% block title %}CodeBlog | Login to our site{% endblock title %}
 {% block body %}
 {% load tailwind_filters %}
 <div class="container m-auto ">
-  <div class="">
-    <div
-class="flex flex-col justify-center items-center h-screen bg-gradient-to-t from-black via-purple-900 to-violet-600">
-<div
-  class=" md:w-auto w-[90%] p-8 rounded-xl  m-4 flex flex-col items-center shadow-lg border border-gray-400 opacity-90 ">
-  <div class="text-xl cursor-pointer flex flex-col justify-center items-center mt-5 md:mt-0 ">
-    <h1 class="font-semibold text-3xl text-gray-200 m-2">Log In</h1>
-  </div>
-  <form method="post" enctype="multipart/form-data">
-    <div class="flex flex-col justify-center items-center mt-10 md:mt-4 space-y-6 md:space-y-8">
-      {% csrf_token %}
-      {{ form|crispy }}
-    </div>
-    <div class="text-center mt-7">
-      <button
-        class="uppercase px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-gradient-to-t from-stone-900 via-purple-900 to-violet-600  font-medium ">login</button>
-    </div>
-  </form>
-</div>
-<div class="text-center my-6 flex flex-col">
-  <a href="{% url 'password_reset' %}" class="text-sm font-medium text-gray-400 hover:text-violet-500 m-1">Forgot
-    Password ?</a>
-  <a href="{% url 'home:signup' %}" class="text-sm font-bold text-gray-400 hover:text-violet-500 m-1">
-    Not a User? Create New Account</a>
-</div>
+  <div class="container m-auto md:w-1/2">
+    <div class="flex justify-center">
+      <div
+        class="flex rounded-2xl shadow-xl justify-center hover:shadow-indigo-800 hover:shadow-2xl  max-w-7xl w-[90%]  bg-gradient-to-bl from-violet-600 via-purple-600 to-violet-500 m-4">
 
-</div>
+        <div class="h-[90%] w-full mt-7">
+          <div class="mb-6 text-white">
+            <a href="{% url 'home:signup' %}"
+              class="flex justify-end mr-8 space-x-2 hover:underline underline-offset-4">
+              <h1>Signup</h1>
+              <i class="fa-solid fa-arrow-right-long mt-[6px]"></i>
+            </a>
+
+          </div>
+          <div class=" flex flex-col justify-center items-center space-y-2">
+            <div>
+              <h1 class="text-xl font-semibold text-white">Here you can Login</h1>
+            </div>
+            <div>
+              <h1 class="text-sm font-semibold text-gray-200">Let's join us :)</h1>
+            </div>
+          </div>
+          <div class="flex flex-col justify-center items-center mt-7 space-y-6 md:space-y-8">
+            <form method="post" enctype="multipart/form-data">
+              <div class="flex flex-col justify-center items-center mt-10 md:mt-4 space-y-6 md:space-y-8">
+                {% csrf_token %}
+                {{ form|crispy }}
+              </div>
+              <div class="text-center mt-7">
+                <button
+                  class="uppercase px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-gradient-to-t from-stone-900 via-purple-900 to-violet-600  font-medium ">login</button>
+              </div>
+            </form>
+          </div>
+          <div class="text-center my-6 flex flex-col">
+            <a href="{% url 'password_reset' %}"
+              class="text-sm font-medium text-gray-400 hover:text-white m-1">Forgot
+              Password ?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://kit.fontawesome.com/290d4f0eb4.js" crossorigin="anonymous"></script>
   </div>
 </div>
 
 {% endblock body %}
-
-
-

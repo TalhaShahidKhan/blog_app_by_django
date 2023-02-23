@@ -4,12 +4,47 @@
 
 {% load tailwind_filters %}
 <div class="container m-auto ">
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <p>Already have an account? <a href="{% url 'login' %}" class="text-blue-500 underline">Login.</a></p>
-    <button class="bg-indigo-500 hover:bg-indigo-600 px-2 py-3 my-3 text-white font-bold rounded-xl" type="submit">Sign Up</button>
-  </form>
+  <div class="container m-auto">
+    <div class="flex justify-center">
+      <div
+        class="flex rounded-2xl shadow-xl justify-center  max-w-7xl w-[90%]  bg-gradient-to-bl from-violet-600 via-purple-600 to-violet-500 m-4  py-10">
+
+        <div class="h-[90%] w-full mt-7">
+          <div class="mb-6 text-white">
+            <a href="{% url 'login' %}"
+              class="flex justify-end mr-8 space-x-2 hover:underline underline-offset-4">
+              <h1>Login</h1>
+              <i class="fa-solid fa-arrow-right-long mt-[6px]"></i>
+            </a>
+
+          </div>
+          <div class=" flex flex-col justify-center items-center space-y-2">
+            <div>
+              <h1 class="text-xl font-semibold text-white">Here you can Signup</h1>
+            </div>
+            <div>
+              <h1 class="text-sm font-semibold text-gray-200">Let's join us :)</h1>
+            </div>
+          </div>
+          <div class="flex flex-col justify-center items-center mt-7 space-y-6 md:space-y-8">
+            <form method="post" enctype="multipart/form-data">
+              <div class="flex flex-col justify-center items-center mt-10 md:mt-4 space-y-6 md:space-y-8">
+                {% csrf_token %}
+                {{ form|crispy }}
+              </div>
+              <div class="text-center mt-7">
+                <button
+                  class="uppercase px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-gradient-to-t from-stone-900 via-purple-900 to-violet-600  font-medium ">Signup</button>
+              </div>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <script src="https://kit.fontawesome.com/290d4f0eb4.js" crossorigin="anonymous"></script>
+  </div>
 </div>
+
 
 {% endblock body %}
