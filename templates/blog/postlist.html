@@ -31,7 +31,7 @@
     </div>
   </section>
    {% if request.user.is_authenticated %}
-   <a href=""
+   <a href="{% url 'blog:post_add' %}"
     class="mx-5 shadow-xl flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">Add
     a new Post</a>
    {% endif %}
