@@ -29,7 +29,7 @@ def post_details(request,slug):
 
 
 
-
+@login_required(login_url='login')
 def create_post(request):
   form=AddPostForm()
   context={
@@ -50,7 +50,7 @@ def create_post(request):
 
 
 
-
+@login_required(login_url='login')
 def update_post(request,slug):
   post=Post.objects.get(slug=slug)
   form=AddPostForm(instance=post)
@@ -67,7 +67,7 @@ def update_post(request,slug):
 
   return render(request, "blog/updatepost.html",context)
 
-
+@login_required(login_url='login')
 def delt_post(request,slug):
   post=Post.objects.get(slug=slug)
   post.delete()

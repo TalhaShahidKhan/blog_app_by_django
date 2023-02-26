@@ -21,7 +21,7 @@
                 <div class="grid m-1">
                   <div class="font-bold text-sm hover:text-gray-600 mt-2">{{post.author}} </div>
                 </div>
-                 {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                 <div class="ml-5 ">
                   <a href="{% url 'blog:post_upd' post.slug %}"
                     class="bg-blue-600 hover:bg-blue-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Update
@@ -30,7 +30,7 @@
                     class="bg-blue-600 hover:bg-blue-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Delete
                     Post</a>
                 </div>
-                {% endif %} 
+                {% endif %}
               </div>
             </div>
           </div>
@@ -38,6 +38,32 @@
       </div>
     </div>
   </div>
+  <hr>
+  <h1 class="text-xl  font-bold ">Comments ... </h1>
+  {% if not post.comments.all %}
+  <h2 class="text-lg font-semibold text-gray-400">No Cdomments Yet.</h2>
+  <a href="">
+    <label for="email" class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
+    <input name="email" class="w-1/2 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" />
+  </a>
+  {% else %}
+  <a href="">
+    <label for="email" class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
+    <br>
+    <input name="email" class="w-1/2 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2 cours" />
+  </a>
+  <br>
+  {% for comment in post.comments.all %}
+    <br>
+    <p class="font-bold text-lg">{{comment.name}} on {{comment.created_on}}</p>
+    <br>
+    <div>
+      <p class="text-gray-400">{{comment.body}}</p>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://use.fontawesome.com/03f8a0ebd4.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
