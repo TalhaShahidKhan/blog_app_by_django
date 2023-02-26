@@ -27,3 +27,9 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super(Post,self).save(*args, **kwargs)
+  
+
+
+
+class Comment(models.Model):
+     post=models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
