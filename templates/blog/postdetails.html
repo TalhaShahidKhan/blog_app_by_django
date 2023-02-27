@@ -24,10 +24,10 @@
                 {% if user.is_authenticated %}
                 <div class="ml-5 ">
                   <a href="{% url 'blog:post_upd' post.slug %}"
-                    class="bg-blue-600 hover:bg-blue-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Update
+                    class="bg-indigo-600 hover:bg-indigo-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Update
                     Post</a>
                   <a href="{% url 'blog:post_dlt' post.slug %}"
-                    class="bg-blue-600 hover:bg-blue-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Delete
+                    class="bg-indigo-600 hover:bg-indigo-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Delete
                     Post</a>
                 </div>
                 {% endif %}
@@ -39,30 +39,43 @@
     </div>
   </div>
   <hr>
-  <div class="container m-auto">
-    <h1 class="text-xl  font-bold ">Comments ... </h1>
-  {% if not post.comments.all %}
-  <h2 class="text-lg font-semibold text-gray-400">No Cdomments Yet.</h2>
-  <a href="{% url 'blog:post_addcom' post.slug %}">
-    <label  class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
-    <input  class="w-1/2 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" />
-  </a>
-  {% else %}
-  <a href="{% url 'blog:post_addcom' post.slug %}">
-    <label for="email" class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
+  <div class="container m-auto bg-gray-200 p-4 rounded-xl">
+    <hr class="my-2">
+    <h1 class="text-2xl  font-bold ">Comments ... </h1>
+    <hr class="my-2">
+    {% if not post.comments.all %}
+    <h2 class="text-lg font-semibold text-gray-400">No Cdomments Yet.</h2>
+    <a href="{% url 'blog:post_addcom' post.slug %}">
+      <label class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
+      <br>
+      <input
+        class="w-1/4 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 cursor-pointer" />
+    </a>
+    {% else %}
+    <a href="{% url 'blog:post_addcom' post.slug %}">
+      <label class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
+      <br>
+      <input type="none"
+        class="w-1/4 px-1 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded-xl outline-none transition duration-100 cursor-pointer"
+        autocomplete="false" placeholder="Click To add Comment" />
+    </a>
     <br>
-    <input name="email" class="w-1/2 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2 cursor-pointer" />
-  </a>
-  <br>
-  {% for comment in post.comments.all %}
-    <br>
-    <p class="font-bold text-lg">{{comment.name}} on {{comment.created_on}}</p>
-    <br>
-    <div>
-      <p class="text-gray-400">{{comment.body}}</p>
+    {% for comment in post.comments.all %}
+    <div class="bg-slate-300 px-2 py-2 rounded-xl my-2 flex items-center justify-between">
+      <div class="mr-2">
+        <p class="font-bold text-lg">{{comment.name}} on {{comment.created_on}}</p>
+        <br>
+        <p class="text-gray-500">{{comment.body}}</p>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="flex flex-col">
+        <a class="bg-indigo-500 mx-2 my-2 px-2 py-2 rounded-xl text-white font-bold shadow-md hover:bg-indigo-600" href="{% url 'blog:post_updcom' post.slug comment.id %}">Update</a>
+        <a class="bg-indigo-500 mx-2 my-2 px-2 py-2 rounded-xl text-white font-bold shadow-md hover:bg-indigo-600" href="{% url 'blog:post_dltcom' post.slug comment.id %}">Delete</a>
+      </div>
+      {% endif %}
     </div>
     {% endfor %}
-  {% endif %}
+    {% endif %}
   </div>
 
 

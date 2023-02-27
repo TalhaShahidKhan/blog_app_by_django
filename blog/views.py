@@ -92,3 +92,31 @@ def add_comment(request,slug):
       obj.save()
       return redirect("/blog")
   return render(request, 'blog/addcomments.html',context )
+
+
+
+@login_required(login_url='login')
+def upd_comment(request,slug,pk):
+  post=Post.objects.get(slug=slug)
+  comment=Comment.objects.get(id=pk)
+  form=CommentForm(instance=comment)
+  context={
+    "form":form,
+    "post":post,
+    "comment":comment,
+  }
+  if request.method == "POST":
+    form=CommentForm(request.POST,instance=comment)
+    if form.is_valid():
+      obj=form.save(commit=False)
+      obj.post=post
+      obj.save()
+      return redirect("/blog")
+  return render(request, 'blog/updatecomments.html',context )
+
+@login_required(login_url='/login')
+def delt_comment(request,slug,pk):
+  post=Post.objects.get(slug=slug)
+  comment=Comment.objects.get(id=pk)
+  comment.delete()
+  return redirect("/blog")
