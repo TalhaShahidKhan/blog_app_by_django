@@ -4,4 +4,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-  pass 
+  bio=models.TextField(blank=True)
+  pic=models.ImageField(null=True ,upload_to='profile/images')
+  address=models.CharField(max_length=200, blank=True)
+  profession=models.CharField(max_length=200,blank=True)
+
