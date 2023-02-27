@@ -39,7 +39,8 @@
     </div>
   </div>
   <hr>
-  <h1 class="text-xl  font-bold ">Comments ... </h1>
+  <div class="container m-auto">
+    <h1 class="text-xl  font-bold ">Comments ... </h1>
   {% if not post.comments.all %}
   <h2 class="text-lg font-semibold text-gray-400">No Cdomments Yet.</h2>
   <a href="{% url 'blog:post_addcom' post.slug %}">
@@ -62,6 +63,7 @@
     </div>
     {% endfor %}
   {% endif %}
+  </div>
 
 
   <script src="https://cdn.tailwindcss.com"></script>
