@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from blog.models import Post
+from blog.models import Post,Comment
 from django.contrib.auth import get_user_model
 from blog.forms import AddPostForm,CommentForm
 # Create your views here.
@@ -76,16 +76,19 @@ def delt_post(request,slug):
 
 
 
-
 @login_required(login_url='login')
-def add_commnet(request):
+def add_comment(request,slug):
+  post=Post.objects.get(slug=slug)
   form=CommentForm()
   context={
-    "form":form
+    "form":form,
+    "post":post
   }
-  if request.method == 'POST':
-    form=CommentForm()
+  if request.method == "POST":
+    form=CommentForm(request.POST)
     if form.is_valid():
-      form.save(commit=False)
-
-  return render(request,'addcomment.html')
+      obj=form.save(commit=False)
+      obj.post=post
+      obj.save()
+      return redirect("/blog")
+  return render(request, 'blog/addcomments.html',context )
