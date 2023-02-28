@@ -30,53 +30,48 @@
             <div class="flex flex-wrap justify-center">
               <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                 <div class="relative">
-                  <img alt="..." src=""
-                    class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                  <img src="{{request.user.pic.url}}"
+                    class="shadow-md hover:shadow-lg hover:shadow-indigo-300 rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                 </div>
               </div>
               
             </div>
             <div class="text-center mt-12">
-              <h3 class="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
+              <h3 class="text-4xl font-semibold leading-normal text-blueGray-700 mt-28 mb-2">
                 {{request.user.first_name}} {{request.user.last_name}}
               </h3>
               <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                 <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                Los Angeles, California
+                {{request.user.address}}
               </div>
-              <div class="mb-2 text-blueGray-600 mt-10">
-                <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>Solution Manager - Creative Tim Officer
+              <div class="mb-2 text-blueGray-600 mt-4">
+                <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>{{request.user.profession}}
               </div>
-              <div class="mb-2 text-blueGray-600">
-                <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i>University of Computer Science
+              <div class="mb-2 text-blueGray-600 mt-4">
+                <p><span class="font-bold ">Email</span> - {{request.user.email}}</p>
               </div>
             </div>
             <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
               <div class="flex flex-wrap justify-center">
                 <div class="w-full lg:w-9/12 px-4">
-                  <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                    An artist of considerable range, Jenna the name taken by
-                    Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                    performs and records all of his own music, giving it a
-                    warm, intimate feel with a solid groove structure. An
-                    artist of considerable range.
-                  </p>
-                  <a href="#pablo" class="font-normal text-pink-500">Show more</a>
+                  <p class="mb-8 text-lg leading-relaxed text-blueGray-700">{{request.user.bio}}</p>
+                  <div>
+                    <a href="#pablo" class="font-bold px-3 py-3 rounded-xl mt-3 text-white bg-indigo-500 hover:bg-indigo-600 shadow-md hover:shadow-lg ">Update Profile</a>
+                  <a href="#pablo" class="font-bold px-3 py-3 rounded-xl mt-3 text-white bg-indigo-500 hover:bg-red-600 shadow-md hover:shadow-lg ">Delete Profile</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div> 
       </div>
       <footer class="relative bg-blueGray-200 pt-8 pb-6 mt-8">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap items-center md:justify-between justify-center">
             <div class="w-full md:w-6/12 px-4 mx-auto text-center">
               <div class="text-sm text-blueGray-500 font-semibold py-1">
-                Made with <a href="https://www.creative-tim.com/product/notus-js"
-                  class="text-blueGray-500 hover:text-gray-800" target="_blank">Notus JS</a> by <a
-                  href="https://www.creative-tim.com" class="text-blueGray-500 hover:text-blueGray-800" target="_blank">
-                  Creative Tim</a>.
+                Made by <a href="https://github.com/talhakhan54" target="_blank" title="GitHub"
+                  class="text-blueGray-500 hover:text-gray-800" target="_blank">Talha Shahid Khan</a> 
               </div>
             </div>
           </div>
