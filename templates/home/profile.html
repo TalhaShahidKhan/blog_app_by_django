@@ -11,7 +11,7 @@
   <main class="profile-page">
     <section class="relative block h-500-px">
       <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
-            background-image: url('');
+            background-image: url('{{request.user.pic.url}}');
           ">
         <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
       </div>
@@ -30,8 +30,13 @@
             <div class="flex flex-wrap justify-center">
               <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                 <div class="relative">
+                  {% if not request.user.pic %}
+                  <img src=""
+                    class="shadow-md hover:shadow-lg hover:shadow-indigo-300 rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                  {% else %}
                   <img src="{{request.user.pic.url}}"
                     class="shadow-md hover:shadow-lg hover:shadow-indigo-300 rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                  {% endif %}
                 </div>
               </div>
               
@@ -56,8 +61,8 @@
                 <div class="w-full lg:w-9/12 px-4">
                   <p class="mb-8 text-lg leading-relaxed text-blueGray-700">{{request.user.bio}}</p>
                   <div>
-                    <a href="#pablo" class="font-bold px-3 py-3 rounded-xl mt-3 text-white bg-indigo-500 hover:bg-indigo-600 shadow-md hover:shadow-lg ">Update Profile</a>
-                  <a href="#pablo" class="font-bold px-3 py-3 rounded-xl mt-3 text-white bg-indigo-500 hover:bg-red-600 shadow-md hover:shadow-lg ">Delete Profile</a>
+                    <a href="{% url 'home:profile_upd' request.user.username %}" class="font-bold px-3 py-3 rounded-xl mt-3 text-white bg-indigo-500 hover:bg-indigo-600 shadow-md hover:shadow-lg ">Update Profile</a>
+                  <a href="{% url 'home:profile_dlt' request.user.username %}" class="font-bold px-3 py-3 rounded-xl mt-3 text-white bg-indigo-500 hover:bg-red-600 shadow-md hover:shadow-lg ">Delete Profile</a>
                   </div>
                 </div>
               </div>

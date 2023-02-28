@@ -6,7 +6,7 @@ from home.manage import UserManager
 
 class CustomUser(AbstractUser):
   bio=models.TextField(blank=True)
-  pic=models.ImageField(null=True ,upload_to='profile/images')
+  pic=models.ImageField(null=True ,upload_to='profile/images',blank=True)
   address=models.CharField(max_length=200, blank=True)
   profession=models.CharField(max_length=200,blank=True)
 
