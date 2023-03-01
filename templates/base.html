@@ -36,7 +36,7 @@
           class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Contact</a>
       </nav>
       {% if request.user.is_authenticated %}
-      <a href="#_" class="mr-4 relative px-5 py-2 font-medium text-white group">
+      <a href="#_" class="mt-2 mr-4 relative px-5 py-2 font-medium text-white group">
         <span
           class="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform translate-x-0 -skew-x-12 bg-indigo-500 group-hover:bg-purple-700 group-hover:skew-x-12"></span>
         <span
@@ -47,7 +47,7 @@
           class="absolute bottom-0 right-0 hidden w-10 h-20 transition-all duration-100 ease-out transform translate-x-10 translate-y-8 bg-indigo-400 -rotate-12"></span>
         <span class="relative">{{request.user.username}}</span>
       </a>
-      <a href="{% url 'home:profile' %}" class="ml-2 relative inline-block text-lg group">
+      <a href="{% url 'home:profile' %}" class="mt-2 ml-2 relative inline-block text-lg group">
         <span
           class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-indigo-600 rounded-lg group-hover:text-white">
           <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-indigo-50"></span>
@@ -59,7 +59,7 @@
           class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-indigo-600 rounded-lg group-hover:mb-0 group-hover:mr-0"
           data-rounded="rounded-lg"></span>
       </a>
-      <a href="{% url 'logout' %}" class="ml-2 relative inline-block text-lg group">
+      <a href="{% url 'logout' %}" class="mt-2 ml-2 relative inline-block text-lg group">
         <span
           class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-indigo-600 rounded-lg group-hover:text-white">
           <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-indigo-50"></span>
