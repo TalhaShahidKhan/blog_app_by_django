@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,44 +8,82 @@
   <title>{% block title %}{% endblock title %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
   {% comment %} navbar start {% endcomment %}
   <header class="text-gray-600 body-font ">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
       <a href="{% url 'LP' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+          viewBox="0 0 24 24">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
         </svg>
         <span class="ml-3 text-xl">CodeBlog</span>
       </a>
       <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-        <a href="{% url 'LP' %}" class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Home</a>
+        <a href="{% url 'LP' %}"
+          class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Home</a>
         {% if request.user.is_authenticated %}
-        <a href="{% url 'home:home' %}" class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Dashboard</a>
+        <a href="{% url 'home:home' %}"
+          class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Dashboard</a>
         {% endif %}
-        <a href="{% url 'blog:post_list' %}" class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Blog</a>
-        <a href="#" class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">About</a>
-        <a href="#" class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Contact</a>
+        <a href="{% url 'blog:post_list' %}"
+          class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Blog</a>
+        <a href="#"
+          class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">About</a>
+        <a href="#"
+          class="text-gray-600 mr-9 hover:text-indigo-500 active:text-indigo-700 text-lg font-semibold transition duration-100">Contact</a>
       </nav>
       {% if request.user.is_authenticated %}
-      <a href="{% url 'home:profile' %}" class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Profile
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
+      <a href="#_" class="mr-4 relative px-5 py-2 font-medium text-white group">
+        <span
+          class="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform translate-x-0 -skew-x-12 bg-indigo-500 group-hover:bg-purple-700 group-hover:skew-x-12"></span>
+        <span
+          class="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform skew-x-12 bg-indigo-700 group-hover:bg-indigo-500 group-hover:-skew-x-12"></span>
+        <span
+          class="absolute bottom-0 left-0 hidden w-10 h-20 transition-all duration-100 ease-out transform -translate-x-8 translate-y-10 bg-indigo-600 -rotate-12"></span>
+        <span
+          class="absolute bottom-0 right-0 hidden w-10 h-20 transition-all duration-100 ease-out transform translate-x-10 translate-y-8 bg-indigo-400 -rotate-12"></span>
+        <span class="relative">{{request.user.username}}</span>
       </a>
-      <a href="{% url 'logout' %}" class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Logout
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
+      <a href="{% url 'home:profile' %}" class="ml-2 relative inline-block text-lg group">
+        <span
+          class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-indigo-600 rounded-lg group-hover:text-white">
+          <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-indigo-50"></span>
+          <span
+            class="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-indigo-600 group-hover:-rotate-180 ease"></span>
+          <span class="relative">Profile</span>
+        </span>
+        <span
+          class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-indigo-600 rounded-lg group-hover:mb-0 group-hover:mr-0"
+          data-rounded="rounded-lg"></span>
       </a>
+      <a href="{% url 'logout' %}" class="ml-2 relative inline-block text-lg group">
+        <span
+          class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-indigo-600 rounded-lg group-hover:text-white">
+          <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-indigo-50"></span>
+          <span
+            class="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-indigo-600 group-hover:-rotate-180 ease"></span>
+          <span class="relative">Logout</span>
+        </span>
+        <span
+          class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-indigo-600 rounded-lg group-hover:mb-0 group-hover:mr-0"
+          data-rounded="rounded-lg"></span>
+      </a>
+
       {% else %}
-      <a href="{% url 'login' %}" class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Login
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <a href="{% url 'login' %}"
+        class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Login
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          class="w-4 h-4 ml-1" viewBox="0 0 24 24">
           <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </a>
-      <a href="{% url 'home:signup' %}" class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Signup
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <a href="{% url 'home:signup' %}"
+        class="ml-3 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center  border-0 py-2 px-4 focus:outline-none text-white  rounded text-base mt-4 md:mt-0">Signup
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          class="w-4 h-4 ml-1" viewBox="0 0 24 24">
           <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </a>
@@ -60,25 +99,34 @@
     <footer class="max-w-screen-2xl px-4 md:px-8 mx-auto">
       <div class="flex flex-col md:flex-row justify-between items-center border-t border-b gap-4 py-6">
         <a href="{% url 'LP' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+            viewBox="0 0 24 24">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
           <span class="ml-3 text-xl">CodeBlog</span>
         </a>
         <!-- nav - start -->
         <nav class="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 md:gap-6">
-          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">About</a>
-          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Investor Relations</a>
-          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Jobs</a>
-          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Press</a>
-          <a href="#" class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Blog</a>
+          <a href="#"
+            class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">About</a>
+          <a href="#"
+            class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Investor
+            Relations</a>
+          <a href="#"
+            class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Jobs</a>
+          <a href="#"
+            class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Press</a>
+          <a href="#"
+            class="text-gray-500 hover:text-indigo-500 active:text-indigo-600 transition duration-100">Blog</a>
         </nav>
         <!-- nav - end -->
       </div>
-  
+
       <div class="text-gray-400 text-sm text-center py-8">© 2021 - CodeBlog. All rights reserved.</div>
     </footer>
   </div>
   {% comment %} footer end {% endcomment %}
 </body>
+
 </html>
