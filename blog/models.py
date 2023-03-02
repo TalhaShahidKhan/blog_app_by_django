@@ -5,7 +5,22 @@ from django.urls import reverse
 # Create your models here.
 User=get_user_model()
 
-class Post(models.Model):
+
+class IsOwnerOrReadOnly(models.Model):
+    """
+    Custom permission to only allow owners of an object to edit it.
+    """
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+    def can_edit(self, user):
+        return user == self.author
+
+
+
+class Post(IsOwnerOrReadOnly):
   author=models.ForeignKey(User,on_delete=models.CASCADE)
   title=models.CharField(max_length=100,unique=True,null=False)
   content=models.TextField()
@@ -19,6 +34,7 @@ class Post(models.Model):
 
   def __str__(self):
         return self.title
+  
 
   def get_absolute_url(self):
         return reverse("post_details", kwargs={"slug": self.slug})  # new
@@ -31,12 +47,17 @@ class Post(models.Model):
 
 
 
-class Comment(models.Model):
+class Comment(IsOwnerOrReadOnly):
+     author = models.ForeignKey(User, on_delete=models.CASCADE)
      post=models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
      name=models.CharField(max_length=200)
      body=models.TextField()
      created_on=models.DateTimeField(auto_now_add=True)
 
+     class Meta:
+      ordering = ['-created_on']
 
      def __str__(self):
-          return f"{self.name} on {self.post.title}"
+            return self.title
+     
+     

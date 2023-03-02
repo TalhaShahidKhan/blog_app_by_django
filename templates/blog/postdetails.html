@@ -9,7 +9,7 @@
         <div class="overflow-hidden w-full m-4 shadow-sm flex flex-col md:flex-row justify-center">
           <div class="flex flex-col md:flex-row items-center">
             <div class=" w-full overflow-hidden"> <img src="{{post.image.url}}" alt="" class="" /> </div>
-            <div class="md:w-2/3 m-4 ">
+            <div class="md:w-2/3 my-4 ">
               <div class="flex text-gray-500 text-sm m-2">
                 <div class="m-1">{{post.created_at}}</div>
               </div>
@@ -22,8 +22,8 @@
                   <div class="font-bold text-sm hover:text-gray-600 mt-2">{{post.author}} </div>
                 </div>
                 {% if user.is_authenticated %}
-                <div class="ml-5 ">
-                  <a href="{% url 'blog:post_upd' post.slug %}"
+                <div class="ml-5 flex items-center">
+                  <a href="{% url 'blog:post_upd' post.slug  %}"
                     class="bg-indigo-600 hover:bg-indigo-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Update
                     Post</a>
                   <a href="{% url 'blog:post_dlt' post.slug %}"

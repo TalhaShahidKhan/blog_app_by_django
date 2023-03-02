@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.urls import reverse_lazy
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from blog.models import Post,Comment
 from django.contrib.auth import get_user_model
@@ -55,9 +55,12 @@ def update_post(request,slug):
   post=Post.objects.get(slug=slug)
   form=AddPostForm(instance=post)
   context={
-    "form":form
+    "form":form,
   }
-  if request.method == "POST":
+  if not post.can_edit(request.user):
+        messages.error(request,"You don't have permission to update others post")
+        return redirect('/blog')
+  if request.method == "POST" :
     form=AddPostForm(request.POST, instance=post, files=request.FILES)
     if form.is_valid():
       post =form.save(commit=False)
@@ -70,7 +73,11 @@ def update_post(request,slug):
 @login_required(login_url='login')
 def delt_post(request,slug):
   post=Post.objects.get(slug=slug)
-  post.delete()
+  if not post.can_edit(request.user):
+        messages.error(request,"You don't have permission to delete others post")
+        return redirect('/blog')
+  else:
+    post.delete()
   return render(request, 'blog/dltpost.html')
 
 
@@ -84,10 +91,12 @@ def add_comment(request,slug):
     "form":form,
     "post":post
   }
+  
   if request.method == "POST":
     form=CommentForm(request.POST)
     if form.is_valid():
       obj=form.save(commit=False)
+      obj.author=request.user
       obj.post=post
       obj.save()
       return redirect("/blog")
@@ -105,7 +114,10 @@ def upd_comment(request,slug,pk):
     "post":post,
     "comment":comment,
   }
-  if request.method == "POST":
+  if not comment.can_edit(request.user):
+        messages.error(request,"You don't have permission to update other's comment")
+        return redirect('/blog')
+  if request.method == "POST" :
     form=CommentForm(request.POST,instance=comment)
     if form.is_valid():
       obj=form.save(commit=False)
@@ -118,5 +130,9 @@ def upd_comment(request,slug,pk):
 def delt_comment(request,slug,pk):
   post=Post.objects.get(slug=slug)
   comment=Comment.objects.get(id=pk)
-  comment.delete()
+  if not comment.can_edit(request.user):
+        messages.error(request,"You don't have permission to delete other's comment")
+        return redirect('/blog')
+  else:
+    comment.delete()
   return redirect("/blog")
