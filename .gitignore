@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 __pycache__
 db.sqlite3
-medi
+media/
 # C extensions
 *.so
 
@@ -23,7 +23,7 @@ sdist/
 var/
 wheels/
 
-
+/media
 
 
 node_modules/
