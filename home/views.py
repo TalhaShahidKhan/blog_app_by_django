@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from home.forms import CustomUserCreationForm,CustomUserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-
+from django.contrib import messages
+from blog.models import Post
 # Create your views here.
 
 User=get_user_model()
@@ -10,11 +11,18 @@ User=get_user_model()
 
 
 def landingpage(request):
-  return render(request, 'home/landingpage.html')
+  if request.user.is_authenticated:
+    return redirect('/home')
+  else:
+    return render(request, 'home/landingpage.html')
 
 @login_required(login_url='login')
 def homepage(request):
-  return render(request, 'home/home.html')
+  posts = Post.objects.all().order_by('created_at')[0:2]
+  context = {
+    "posts":posts
+  }
+  return render(request, 'home/home.html',context)
 
 
 @login_required(login_url='login')
@@ -47,7 +55,7 @@ def profileupdate(request,username):
     form=CustomUserChangeForm(request.POST,instance=user,files=request.FILES)
     if form.is_valid():
       form.save()
-      return redirect("/home/profile")
+      return redirect("/home/profile/")
   context={
     "form":form
   }
@@ -59,7 +67,7 @@ def profileupdate(request,username):
 def dltprof(request,username):
   user=User.objects.get(username=username)
   user.delete()
-  return render(request,'home/dltprofile.html')
+  return redirect("/")
 
 
 

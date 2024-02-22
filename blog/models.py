@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify  
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from ckeditor.fields import RichTextField 
 # Create your models here.
 User=get_user_model()
 
@@ -23,7 +24,7 @@ class IsOwnerOrReadOnly(models.Model):
 class Post(IsOwnerOrReadOnly):
   author=models.ForeignKey(User,on_delete=models.CASCADE)
   title=models.CharField(max_length=100,unique=True,null=False)
-  content=models.TextField()
+  content=RichTextField()
   slug=models.SlugField(null=True,unique=True)
   image=models.ImageField(upload_to='post/images',null=True)
   created_at = models.DateTimeField(auto_now_add=True)
@@ -51,13 +52,13 @@ class Comment(IsOwnerOrReadOnly):
      author = models.ForeignKey(User, on_delete=models.CASCADE)
      post=models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
      name=models.CharField(max_length=200)
-     body=models.TextField()
+     body=models.CharField(max_length=500)
      created_on=models.DateTimeField(auto_now_add=True)
 
      class Meta:
       ordering = ['-created_on']
 
      def __str__(self):
-            return self.title
+            return self.name
      
      

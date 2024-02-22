@@ -1,89 +1,154 @@
 {% extends 'base.html' %}
 {% block title %}CodeBlog | Read Post : {{post.title}}{% endblock title %}
+{% load widget_tweaks %}
 {% block body %}
+{% comment %} {% load tailwind_filters %} {% endcomment %}
 
-<div class="container m-auto">
-  <div class="flex justify-center">
-    <div class="flex flex-col justify-center">
-      <div class="flex flex-col md:flex-row max-w-7xl justify-center items-center ">
-        <div class="overflow-hidden w-full m-4 shadow-sm flex flex-col md:flex-row justify-center">
-          <div class="flex flex-col md:flex-row items-center">
-            <div class=" w-full overflow-hidden"> <img src="{{post.image.url}}" alt="" class="" /> </div>
-            <div class="md:w-2/3 my-4 ">
-              <div class="flex text-gray-500 text-sm m-2">
-                <div class="m-1">{{post.created_at}}</div>
-              </div>
-              <div class="font-bold text-black text-xl m-2">{{post.title}} </div>
-              <div class="text-sm text-gray-500 mt-4 m-2">{{post.content}}</div>
-              <div class="flex cursor-pointer mt-5">
-                <div class="m-2"> <img src="" alt="" class=" rounded-full" />
-                </div>
-                <div class="grid m-1">
-                  <div class="font-bold text-sm hover:text-gray-600 mt-2">{{post.author}} </div>
-                </div>
-                {% if user.is_authenticated %}
-                <div class="ml-5 flex items-center">
-                  <a href="{% url 'blog:post_upd' post.slug  %}"
-                    class="bg-indigo-600 hover:bg-indigo-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Update
-                    Post</a>
-                  <a href="{% url 'blog:post_dlt' post.slug %}"
-                    class="bg-indigo-600 hover:bg-indigo-700 rounded-xl ml-2 px-2 py-3 shadow-xl font-bold text-white mt-2 text-center">Delete
-                    Post</a>
-                </div>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </div>
+
+<section class="bg-white  dark:bg-gray-900 py-8 lg:py-16 antialiased">
+    {% if messages %}
+    {% for msg  in messages %}
+    <div id="toast-success" class="flex items-center w-full max-w-2xl mx-auto p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+      <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+          </svg>
+          <span class="sr-only">Check icon</span>
       </div>
-    </div>
-  </div>
-  <hr>
-  <div class="container m-auto bg-gray-200 p-4 rounded-xl">
-    <hr class="my-2">
-    <h1 class="text-2xl  font-bold ">Comments ... </h1>
-    <hr class="my-2">
-    {% if not post.comments.all %}
-    <h2 class="text-lg font-semibold text-gray-400">No Cdomments Yet.</h2>
-    <a href="{% url 'blog:post_addcom' post.slug %}">
-      <label class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
-      <br>
-      <input
-        class="w-1/4 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 cursor-pointer" />
-    </a>
-    {% else %}
-    <a href="{% url 'blog:post_addcom' post.slug %}">
-      <label class="inline-block text-gray-800 text-sm sm:text-base mb-2">Add Comment</label>
-      <br>
-      <input type="none"
-        class="w-1/4 px-1 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded-xl outline-none transition duration-100 cursor-pointer"
-        autocomplete="false" placeholder="Click To add Comment" />
-    </a>
-    <br>
-    {% for comment in post.comments.all %}
-    <div class="bg-slate-300 px-2 py-2 rounded-xl my-2 flex items-center justify-between">
-      <div class="mr-2">
-        <p class="font-bold text-lg">{{comment.name}} on {{comment.created_on}}</p>
-        <br>
-        <p class="text-gray-500">{{comment.body}}</p>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="flex flex-col">
-        <a class="bg-indigo-500 mx-2 my-2 px-2 py-2 rounded-xl text-white font-bold shadow-md hover:bg-indigo-600" href="{% url 'blog:post_updcom' post.slug comment.id %}">Update</a>
-        <a class="bg-indigo-500 mx-2 my-2 px-2 py-2 rounded-xl text-white font-bold shadow-md hover:bg-indigo-600" href="{% url 'blog:post_dltcom' post.slug comment.id %}">Delete</a>
-      </div>
-      {% endif %}
+      <div class="ms-3 text-lg  w-1/2 mx-auto font-normal">{{msg}}</div>
+      <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+          <span class="sr-only">Close</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+      </button>
     </div>
     {% endfor %}
     {% endif %}
-  </div>
+    <div class="max-w-4xl mx-auto px-4">
+        <header class="mb-4 lg:mb-6 not-format flex flex-col items-start justify-start">
+
+                <address class="flex items-center mb-6 not-italic">
+                    <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                        {% if not post.author.pic %}
+                        <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd"
+                      d="M12 20a8 8 0 0 1-5-1.8v-.6c0-1.8 1.5-3.3 3.3-3.3h3.4c1.8 0 3.3 1.5 3.3 3.3v.6a8 8 0 0 1-5 1.8ZM2 12a10 10 0 1 1 10 10A10 10 0 0 1 2 12Zm10-5a3.3 3.3 0 0 0-3.3 3.3c0 1.7 1.5 3.2 3.3 3.2 1.8 0 3.3-1.5 3.3-3.3C15.3 8.6 13.8 7 12 7Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                        {% else %}
+                        <img class="mr-4 w-16 h-16 rounded-full" src="{{post.author.pic.url}}" alt="Jese Leos">
+                        {% endif %}
+                        <div>
+                            <a href="{% url "home:profile" %}" rel="author"
+                                class="text-xl font-bold text-gray-900 dark:text-white">{{post.author.first_name}}
+                                {{post.author.last_name}}</a>
+                            <p class="text-base text-gray-500 dark:text-gray-400">{{post.author.profession}}</p>
+                            <p class="text-base text-gray-500 dark:text-gray-400">{{post.created_at}}</p>
+                        </div>
+                    </div>
+                </address>
+                <div class="flex flex-row items-center justify-around  w-full">
+                    <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+                        {{post.title}}
+                    </h1>
+                    {% if user.is_authenticated %}
+                    <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" class="inline-flex items-center p-5 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                        <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                        </svg>
+                    </button>
+                    <div id="dropdownDots" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                            <li>
+                            <a href="{% url 'blog:post_upd' post.slug  %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Update</a>
+                            </li>
+                            <li>
+                            <a href="{% url 'blog:post_dlt' post.slug  %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+        </header>
 
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://use.fontawesome.com/03f8a0ebd4.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</div>
+        <section class="bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl   lg:py-16">
+                <figure class=" w-full">
+                    <img class="h-auto max-w-full mx-auto rounded-lg" src="{{post.image.url}}" alt="image description">
+                </figure>
+                <div class="text-xl py-8 text-gray-900 dark:text-white">
+                    <p class="">{{post.content | safe}}</p>
+                </div>
+            </div>
+        </section>
 
 
+        <section>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comments</h2>
+            </div>
+            <form class="mb-6" action="{% url "blog:post_det" post.slug %}" method="post">
+                {% csrf_token %}
+                {% render_field form.body type="name" class+="p-5 w-full text-md text-gray-900 border-0 focus:ring-0 dark:text-white dark:placeholder-gray-400 dark:bg-gray-800 rounded-xl m-5" placeholder="Enter your opinion..." %}
+                <button type="submit"
+                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                    Post comment
+                </button>
+            </form>
+            {% for comment in post.comments.all %}
+            <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
+                <footer class="flex justify-between items-center mb-2">
+                    <div class="flex items-center">
+                        <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                            {% if not comment.author.pic %}
+                            <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M12 20a8 8 0 0 1-5-1.8v-.6c0-1.8 1.5-3.3 3.3-3.3h3.4c1.8 0 3.3 1.5 3.3 3.3v.6a8 8 0 0 1-5 1.8ZM2 12a10 10 0 1 1 10 10A10 10 0 0 1 2 12Zm10-5a3.3 3.3 0 0 0-3.3 3.3c0 1.7 1.5 3.2 3.3 3.2 1.8 0 3.3-1.5 3.3-3.3C15.3 8.6 13.8 7 12 7Z"
+                  clip-rule="evenodd" />
+              </svg>
+                            {% else %}
+                            <img class="mr-2 w-6 h-6 rounded-full" src="{{comment.author.pic.url}}" alt="Michael Gough">
+                            {% endif %}
+                            {{comment.author}}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
+                                title="February 8th, 2022">{{comment.created_on}}</time></p>
+                    </div>
+
+                </footer>
+                <p class="text-gray-500 dark:text-gray-400">{{comment.body}}</p>
+                {% if user.is_authenticated %}
+                <div class="flex items-center mt-4 space-x-4">
+                    <a href="{% url 'blog:post_updcom' post.slug comment.id %}"
+                        class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
+                        <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                        </svg>
+                        Update
+                    </a>
+                    <a href="{% url 'blog:post_dltcom' post.slug comment.id %}"
+                        class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
+                        <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                        </svg>
+                        Delete
+                    </a>
+                </div>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </section>
+
+
+
+    </div>
+</section>
 {% endblock body %}

@@ -25,6 +25,7 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls'),name='auth'),
     path('home/', include('home.urls',namespace='home')),
     path('blog/', include('blog.urls',namespace='blog')),
+    path('ckeditor/',include('ckeditor_uploader.urls'))
 ]
 
 if settings.DEBUG:
