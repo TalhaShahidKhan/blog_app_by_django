@@ -16,6 +16,12 @@ def landingpage(request):
   else:
     return render(request, 'home/landingpage.html')
 
+def aboutpage(request):
+    return render(request, 'home/about.html')
+def contactpage(request):
+    return render(request, 'home/contact.html')
+
+
 @login_required(login_url='login')
 def homepage(request):
   posts = Post.objects.all().order_by('created_at')[0:2]
@@ -37,7 +43,10 @@ def signuppage(request):
     form=CustomUserCreationForm(request.POST)
     if form.is_valid():
       form.save()
+      messages.success(request,"Your account has been created. You can log in now.")
       return redirect('login')
+    else:
+      messages.error(request,form.errors)
   else:
     form=CustomUserCreationForm()
   context={
