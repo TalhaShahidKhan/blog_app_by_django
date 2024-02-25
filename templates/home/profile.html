@@ -3,9 +3,15 @@
 {% block body %}
 
 <div class=" flex flex-col items-center justify-center p-6 space-y-4 md:space-y-6 sm:p-8">
+  {% if  request.user.pic.url %}
   <div class="mt-10  justify-center mb-5 ">
     <img src="{{request.user.pic.url}}" class="rounded-full h-40 w-40" alt="" />
   </div>
+  {% else %}
+  <div class="mt-10  justify-center mb-5 ">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Gfp0lwE6h7139625a-r3aAHaHa%26pid%3DApi%26h%3D160&f=1&ipt=41a4fef1812bcd6445cc7d20154d19a8680f16a1484cbba6cd875cad14589ec8&ipo=images" class="rounded-full h-40 w-40" alt="" />
+  </div>
+  {% endif %}
   <div class="flex flex-col md:flex-row items-center justify-center">
     <div class="flex justify-center px-5 py-3 ">
       <p class="font-bold text-3xl text-gray-900 dark:text-white">{{request.user.first_name}}
@@ -15,15 +21,15 @@
       <div class="border-b-2 border-gray-500 w-full"></div>
     </div>
     <div class="grid grid-cols-1 text-center p-5">
-      <div class="border-4 flex  flex-col  text-center text-gray-900 dark:text-white items-center justify-around border-teal-500">
+      <div class=" flex  flex-col  text-center text-gray-900 dark:text-white items-center justify-around ">
         <p class="font-semibold py-2">Profession</p>
         <p>{{request.user.profession}}</p>
       </div>
-      <div class="border-4 flex flex-col  text-center text-gray-900 dark:text-white  items-center justify-around border-teal-500">
+      <div class=" flex flex-col  text-center text-gray-900 dark:text-white  items-center justify-around ">
         <p class="font-semibold py-2">Address</p>
         <p>{{request.user.address}}</p>
       </div>
-      <div class="border-4 flex flex-col  text-center text-gray-900 dark:text-white  items-center justify-around border-teal-500">
+      <div class=" flex flex-col  text-center text-gray-900 dark:text-white  items-center justify-around ">
         <p class="font-semibold py-2">Email</p>
         <p>{{request.user.email}}</p>
       </div>
