@@ -43,13 +43,9 @@ INSTALLED_APPS = [
     'compressor',
     'ckeditor',
     'widget_tweaks',
-    'crispy_forms',
-    'crispy_tailwind',
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
 ]
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = "tailwind"
 
 COMPRESS_ROOT = BASE_DIR / 'static'
 
